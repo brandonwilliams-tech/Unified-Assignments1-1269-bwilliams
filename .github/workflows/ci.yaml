@@ -73,6 +73,8 @@ jobs:
           args: >
             --enableExperimental
             --exclude "**/venv/**"
+            --failOnCVSS 7
+            --enableRetired
 
       - name: Upload Dependency-Check Report as Artifact
         uses: actions/upload-artifact@v4
