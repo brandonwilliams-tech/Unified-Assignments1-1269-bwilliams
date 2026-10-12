@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          . venv/bin/activate
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: |
+          . venv/bin/activate
+          pip install pytest
+          python -m pytest
+
+  sast-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Semgrep
+        run: |
+          pip install semgrep
+
+      - name: Run Semgrep Scan
+        run: |
+          semgrep --config p/ci --sarif --output semgrep-results.sarif
+
+      - name: Upload Semgrep Report as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-report
+          path: semgrep-results.sarif
+          if-no-files-found: error
+
+  dependency-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run OWASP Dependency-Check
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: "Unified-Assignments1-1269-bwilliams"
+          path: "."
+          format: "SARIF"
+          out: "dependency-check-report"
+          args: >
+            --enableExperimental
+            --exclude "**/venv/**"
+            --failOnCVSS 7
+            --enableRetired
+
+      - name: Upload Dependency-Check Report as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-check-report
+          path: ./dependency-check-report/dependency-check-report.sarif
+          if-no-files-found: error
