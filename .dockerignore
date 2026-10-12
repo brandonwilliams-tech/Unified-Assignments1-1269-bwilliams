@@ -1,0 +1,7 @@
+__pycache__
+.git
+.github
+app.log
+.env
+.pre-commit-config.yaml
+test_app.py
