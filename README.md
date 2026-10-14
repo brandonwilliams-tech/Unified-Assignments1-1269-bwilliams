@@ -34,4 +34,5 @@ docker push brandon8721/library-api:v1
 ## Team
 | Member | Tasks |
 |---|---|
+|Matthew Juskovic | |
 | Brandon Williams | |
