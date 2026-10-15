@@ -47,7 +47,7 @@ jobs:
 
       - name: Run Semgrep Scan
         run: |
-          semgrep --config p/ci --sarif --output semgrep-results.sarif
+          semgrep --config p/ci --sarif --output semgrep-results.sarif --error --severity ERROR
 
       - name: Upload Semgrep Report as Artifact
         uses: actions/upload-artifact@v4
