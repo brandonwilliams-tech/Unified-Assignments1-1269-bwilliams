@@ -23,6 +23,9 @@ WORKDIR /app
 COPY --from=builder /python-packages /python-packages
 ENV PYTHONPATH=/python-packages
 
+# Remove pip and setuptools, the running app doesn't need them
+RUN pip uninstall -y pip setuptools
+
 # Create a non-root user (security: the app should not run as root)
 RUN adduser --disabled-password --gecos '' appuser
 
