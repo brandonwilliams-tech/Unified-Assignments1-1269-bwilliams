@@ -1,6 +1,8 @@
 # Unified-Assignments1-1269-bwilliams
 # Library Management System
 
+![Unit & API tests](https://github.com/brandonwilliams-tech/Unified-Assignments1-1269-bwilliams/actions/workflows/unit-tests.yml/badge.svg)
+![SAST](https://github.com/brandonwilliams-tech/Unified-Assignments1-1269-bwilliams/actions/workflows/sast.yml/badge.svg)
 ![CI](https://github.com/brandonwilliams-tech/Unified-Assignments1-1269-bwilliams/actions/workflows/ci.yaml/badge.svg)
 
 A FastAPI app with two endpoints: `/books` and `/health`.
