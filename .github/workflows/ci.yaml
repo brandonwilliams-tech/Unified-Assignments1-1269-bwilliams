@@ -109,3 +109,12 @@ jobs:
           severity: 'HIGH,CRITICAL'
           exit-code: '1'
           skip-setup-trivy: true
+
+      - name: Run container
+        run: docker run -d -p 8080:8080 library-api:ci
+
+      - name: Test endpoints
+        run: |
+          sleep 5
+          curl --fail http://localhost:8080/health
+          curl --fail http://localhost:8080/books    
