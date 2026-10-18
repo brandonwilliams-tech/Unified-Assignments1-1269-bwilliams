@@ -82,3 +82,30 @@ jobs:
           name: dependency-check-report
           path: ./dependency-check-report/dependency-check-report.sarif
           if-no-files-found: error
+          
+  docker-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t library-api:ci .
+
+      - name: Manual Trivy Setup
+        uses: aquasecurity/setup-trivy@v0.3.1
+        with:
+          cache: true
+          version: v0.70.0
+
+      - name: Scan Docker image with Trivy
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: 'image'
+          image-ref: 'library-api:ci'
+          ignore-unfixed: true
+          format: 'table'
+          severity: 'HIGH,CRITICAL'
+          exit-code: '1'
+          skip-setup-trivy: true
