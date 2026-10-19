@@ -36,5 +36,5 @@ docker push brandon8721/library-api:v1
 ## Team
 | Member | Tasks |
 |---|---|
-|Matthew Juskovic | |
-| Brandon Williams | |
+| Brandon Williams | • Created the repo and the main branch ruleset (PR required, 1 approval, required checks, no direct pushes, force-push block, Copilot review)<br>• Set up pre-commit with Black, Flake8 and Bandit, and tested it (PR #2)<br>• Built the original CI workflow: Python 3.12+ venv, requirements.txt, pytest, and the API tests for /books and /health<br>• Added Semgrep SAST and OWASP Dependency-Check (fails on CVSS 7+)<br>• Wrote the Dockerfile (multi-stage, non-root user) and the app<br>• Opened PR #5 (Semgrep blocking)<br>• Added the AWS and Docker Hub secrets and ran the AWS Academy lab for the push<br>• Wrote the push step code<br>• Added docker-scan to the ruleset as a required check<br>• Resolved the duplicate PR #10 conflict<br>• Approved and merged PRs<br>• Task 4 credentials write-up (with Matthew) |
+| Matthew Juskovic | • Added the docker-scan job (Trivy image scan) to the CI workflow and fixed the broken setup-trivy version<br>• Fixed the 4 HIGH vulnerabilities by removing pip and setuptools from the final image (Dockerfile change)<br>• Added the container run and /health and /books endpoint test steps to CI<br>• Added the ECR and Docker Hub push steps to the workflow (code from Brandon)<br>• Split unit tests and SAST into their own workflow files and updated the README badges<br>• Filled in the README team task list<br>• Reviewed, updated and merged PR #5<br>• Task 4 credentials write-up (with Brandon) |
